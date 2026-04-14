@@ -1,0 +1,2 @@
+-- AlterTable: add paymentMethod to Order
+ALTER TABLE "Order" ADD COLUMN "paymentMethod" TEXT NOT NULL DEFAULT 'BANK_TRANSFER';

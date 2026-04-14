@@ -1,0 +1,36 @@
+app = "blissbone-shop"
+primary_region = "ams"
+
+[build]
+
+[env]
+  NODE_ENV = "production"
+  PORT = "8080"
+
+[mounts]
+  source = "blissbone_data"
+  destination = "/data"
+
+[[services]]
+  internal_port = 8080
+  protocol = "tcp"
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+    force_https = true
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [services.concurrency]
+    type = "requests"
+    hard_limit = 50
+    soft_limit = 30
+
+  [[services.http_checks]]
+    interval = "15s"
+    timeout = "5s"
+    grace_period = "60s"
+    path = "/api/health"
